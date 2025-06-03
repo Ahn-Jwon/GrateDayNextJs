@@ -1,13 +1,13 @@
+// 헤더와 푸터
 export default function RootLayout({
-    children,
-  }: Readonly<{
-    children: React.ReactNode;
-  }>) {
-    return (
-        <div className="flex h-screen flex-col">
-            <main className="flex-1 wrapper">
-                { children}
-            </main>
-        </div>
-    );
-  }
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <div className="flex h-screen flex-col">
+        ROOT
+      <main className="flex-1 wrapper">{children}</main>
+    </div>
+  );
+}
