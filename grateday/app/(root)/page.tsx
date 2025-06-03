@@ -1,4 +1,4 @@
-const HomePage = () => {
+const HomePage =  () => {
   return <>GrateDay</>;
 };
  
