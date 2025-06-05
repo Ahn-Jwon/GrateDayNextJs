@@ -33,10 +33,10 @@ const Menu = () => {
                     </Link>
                     </Button>
                     <Button asChild >
-                <Link href='/sigh-in'>
+                    <Link href='/sigh-in'>
                     <UserIcon /> Sign In
-                </Link>
-            </Button>
+                     </Link>
+                    </Button>
                     <SheetDescription></SheetDescription>
                 </SheetContent>
             </Sheet>
