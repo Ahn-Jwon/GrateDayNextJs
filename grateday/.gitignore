@@ -41,3 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 /lib/generated/prisma
+prisma/migrations/**/migration.sql
+db/seed.ts
+prisma/schema.prisma
+constants/index.ts
