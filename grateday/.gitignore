@@ -44,4 +44,4 @@ next-env.d.ts
 prisma/migrations/**/migration.sql
 db/seed.ts
 prisma/schema.prisma
-constants/index.ts
+lib/constants/index.ts

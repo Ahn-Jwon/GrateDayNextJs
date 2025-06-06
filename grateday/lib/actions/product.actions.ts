@@ -8,7 +8,7 @@ export async function getLatestProduct() {
     const prisma = new PrismaClient();
 
     const data = await prisma.product.findMany({
-        take: LATEST_PRODUCT_LOMIT,
+        take: LATEST_PRODUCT_LOMIT ,
         orderBy: { createdAt: 'desc' },
     });
 
