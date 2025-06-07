@@ -11,6 +11,13 @@ export async function getLatestProduct() {
         take: LATEST_PRODUCT_LOMIT ,
         orderBy: { createdAt: 'desc' },
     });
-
+ 
     return convertToPlainObject(data);
+}
+
+//Get single product 
+export async function getProductBySlug(slug: string) {
+    return await prisma.product.findFirst({
+        where: { slug: slug },
+    });
 }
