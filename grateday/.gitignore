@@ -45,3 +45,4 @@ prisma/migrations/**/migration.sql
 db/seed.ts
 prisma/schema.prisma
 lib/constants/index.ts
+db/prisma.ts
