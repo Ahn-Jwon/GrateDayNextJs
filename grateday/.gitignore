@@ -40,9 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/lib/generated/prisma
-prisma/migrations/**/migration.sql
-db/seed.ts
-prisma/schema.prisma
-lib/constants/index.ts
-db/prisma.ts
+# /lib/generated/prisma
+# prisma/migrations/**/migration.sql
+# db/seed.ts
+# prisma/schema.prisma
+# lib/constants/index.ts
+# db/prisma.ts

@@ -22,7 +22,7 @@ const ProductDetalisPage = async (props: {
           <div className="col-span-2">
             <ProductImages images={product.images} />
           </div>
-          {/* Details Columnn */}
+          {/* Details Columnn */} 
           <div className="col-span-2 p-5">
             <div className="flex flex-col gap-6">
               <p>
