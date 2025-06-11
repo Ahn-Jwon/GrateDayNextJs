@@ -35,11 +35,12 @@ yarn-error.log*
 
 # vercel
 .vercel
-
+ 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
+# 나중에 깃이그노 한번 정리할것 
 # /lib/generated/prisma
 # prisma/migrations/**/migration.sql
 # db/seed.ts
