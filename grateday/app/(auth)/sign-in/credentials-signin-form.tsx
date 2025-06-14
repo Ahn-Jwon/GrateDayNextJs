@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signInDefaultValues } from "@/lib/constants";
+import Link from "next/link";
 
 const CredentialsSignInForm = () => {
   return (
@@ -31,9 +32,17 @@ const CredentialsSignInForm = () => {
             defaultValue={signInDefaultValues.password}
           />
         </div>
-        <Button className="w-full" variant="default">
-          Sign In
-        </Button>
+        <div>
+          <Button className="w-full" variant="default">
+            Sign In
+          </Button>
+        </div>
+        <div className="text-sm text-center text-muted-foreground">
+          Don&apos;t have an account?{" "}
+          <Link href="/sign-up" target="_self" className="link">
+            Sign Up
+          </Link>
+        </div>
       </div>
     </form>
   );
