@@ -4,12 +4,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { APP_NAME } from "@/lib/constants";
 import CredentialsSignInForm from "./credentials-signin-form";
+import { auth } from '@/auth'; //세션을 받은다음 로그인을 했는지 여부를 체크
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: "Sign In",
 };
 
-const SignInPage = () => {
+const SignInPage = async () => {
+  const session = await auth();
+
+  if(session) {
+    return redirect('/');
+  }
+
   return (
     <div className="w-full max-w-md mx-auto">
       <Card>
