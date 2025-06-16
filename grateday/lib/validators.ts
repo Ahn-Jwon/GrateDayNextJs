@@ -35,7 +35,7 @@ export const signUpFormSchema = z.object({
     email: z.string().email('Invalid email address'),
     password: z.string().min(6, 'Password must be at least 6 characters'),
     confirmPassword: z.string().min(6, 'confirm Password must be at least 6 characters'),
-}).refine((data) => data.password === data.confirmPassword, {
+}).refine((data) => data.password === data.confirmPassword, { // 비밀번호 컨펌
     message: "Passwords don't match",
     path: ['confirmPassword']
 });
