@@ -5,7 +5,7 @@ import {signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import {prisma} from '@/db/prisma';
-
+import { formatError } from "../utils";
 
 // Sign in the user with credentials 後で구글이나 깃허브로도 가능
 // 여기 Hook를 사용한다.
@@ -64,6 +64,6 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
         if(isRedirectError(error)) {
             throw error;
         }
-        return { success: false, message: 'User was not registered' }
+        return { success: false, message: formatError(error) }
     }
 }
