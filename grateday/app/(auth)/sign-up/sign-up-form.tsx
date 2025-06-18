@@ -16,30 +16,29 @@ const SignUpForm = () => {
     message: "",
   });
 
-  const searchhParams= useSearchParams();
-  const callbackUrl = searchhParams.get('callbackUrl') || '/';
+  const searchhParams = useSearchParams();
+  const callbackUrl = searchhParams.get("callbackUrl") || "/";
 
   const SignUpButton = () => {
     const { pending } = useFormStatus();
 
     return (
-      <Button disabled={pending} className='w-full' variant='default'>
-        { pending ? 'Submitting...' : 'Sign Up' }
+      <Button disabled={pending} className="w-full" variant="default">
+        {pending ? "Submitting..." : "Sign Up"}
       </Button>
-    )
-  }
+    );
+  };
 
   return (
     <form action={action}>
       <input type="hidden" name="callbackUrl" value={callbackUrl} />
       <div className="space-y-6">
-      <div>
+        <div>
           <Label htmlFor="email">Name</Label>
           <Input
             id="name"
             name="name"
             type="text"
-            
             autoComplete="name"
             defaultValue={signUpDefaultValues.name}
           />
@@ -50,7 +49,6 @@ const SignUpForm = () => {
             id="email"
             name="email"
             type="text"
-            
             autoComplete="email"
             defaultValue={signUpDefaultValues.email}
           />
@@ -78,7 +76,7 @@ const SignUpForm = () => {
           />
         </div>
         <div>
-        <SignUpButton />
+          <SignUpButton />
         </div>
 
         {data && !data.success && (
