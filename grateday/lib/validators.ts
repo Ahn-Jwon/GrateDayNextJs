@@ -46,7 +46,7 @@ export const cartItemSchema = z.object({
     productId: z.string().min(1, 'Product  is required'),
     name: z.string().min(1, 'Name  is required'),
     slug: z.string().min(1, 'Slug  is required'),
-    qty: z.number().int().positive('Quantity must be a positive'),
+    qty: z.number().int().positive('Quantity must be a positive'), //이거 positive 중요 기존 nonpositive 이걸로 되있어서 읽지못했음
     image: z.string().min(1, 'Image  is required'),
     price: currency
 });
