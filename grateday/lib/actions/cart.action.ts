@@ -65,16 +65,14 @@ export async function addItemToCart(data: CartItem) {
 
             // Revalidate product page
             revalidatePath(`/product/${product.slug}`)
-            
+
             return {
                 success: true,
-                message: 'There was an  issue'
-            }
+                message: 'Item added to cart'
+            }   
+        } else { 
             
         }
-
-
-
     } catch (error) {
         return {
             success: false,
