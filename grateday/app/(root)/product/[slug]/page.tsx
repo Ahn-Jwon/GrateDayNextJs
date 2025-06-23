@@ -6,6 +6,8 @@ import ProductPrice from "@/components/shared/product/product-price";
 import ProductImages from "@/components/shared/product/product-images";
 import AddToCart from "@/components/shared/product/add-to-cart";
 
+// 이쪽이 사이트의 화면라우터를 담당하는곳
+
 const ProductDetalisPage = async (props: {
   params: Promise<{ slug: string }>;
 }) => {
