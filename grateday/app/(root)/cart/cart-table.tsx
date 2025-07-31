@@ -117,7 +117,6 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
               </TableBody>
             </Table>
           </div>
-
           <Card>
             <CardContent className="p-4 gap-4">
               <div className="pb-3 text-xl">
@@ -126,6 +125,13 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                   {formatCurrency(cart.itemsPrice)}
                 </span>
               </div>
+              <Button className="w-full" disabled={isPending} onClick={ () => startTransition(() => router.push('/shipping-address'))}>
+                { isPending ? (
+                  <Loader className="w-4 h-4 animate-spin" />
+                ) : (
+                  <ArrowRight className="w-4 h-4" />
+                ) } Proceed to Checkout 
+              </Button>
             </CardContent>
           </Card>
         </div>
