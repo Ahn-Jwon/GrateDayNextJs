@@ -12,6 +12,7 @@ import { hashSync } from "bcrypt-ts-edge";
 import {prisma} from '@/db/prisma';
 import { formatError } from "../utils";
 import { ShippingAddress } from "@/types";
+import z from "zod";
 
 
 // Sign in the user with credentials 後で구글이나 깃허브로도 가능
@@ -85,9 +86,9 @@ export async function getUserById(userId: string) {
 }
 
 // Update the user's address
-export async function updateUserAdderss(data: ShippingAddress) {
-    try {
-        const session = await auth();
+export async function updateUserAdderss(data: ShippingAddress) { 
+    try { 
+        const session = await auth(); // 로그인된 사용자 세션 
         const currentUser = await prisma.user.findFirst({
             where: {id: session?.user?.id}
         })
@@ -106,5 +107,34 @@ export async function updateUserAdderss(data: ShippingAddress) {
         }
     } catch (error) {
         return { success: false, message: formatError(error) }
+    }
+}
+
+// Update user's payment method (사용자 결제 방법 업데이트)
+export async function updateUserPaymentMethod(data: z.infer<typeof paymentMethodSchema>) { // 비동기함수 
+    try {
+        const session = await auth(); // 로그인된 사용자 세션 
+        const currentUser = await prisma.user.findFirst({ // 로그인된 사용자의 id를 기준으로 user 테이블에서 사용자 조회함 
+            where: {id: session?.user?.id}
+        }); 
+        if(!currentUser) throw new Error('User not found'); // 사용자가 없는 경우 예외처리 
+
+        const paymentMethod = paymentMethodSchema.parse(data); // 입력 데이터 검증 (Zod 사용
+        // data를 paymentMethodSchema로 파싱하여 유효성을 검사
+        console.log('Parsed payment method:', paymentMethod);
+        
+
+        // 사용자 정보 업데이트
+        await prisma.user.update({
+            where: {id: currentUser.id},
+            data: {paymentMethod: paymentMethod.type }
+        }); // 현재 사용자 ID를 기준으로 user 테이블의 paymentMethod 필드를 type 값으로 업데이트
+
+        return {
+            success: true, 
+            message: 'User updated successfully',
+        } // 여기까지 try 
+    } catch (error) {
+        return { success: false, message: formatError(error)}
     }
 }
