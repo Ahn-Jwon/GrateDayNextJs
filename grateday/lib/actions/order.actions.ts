@@ -5,6 +5,9 @@ import { formatError } from "../utils";
 import { auth } from "@/auth";
 import { getMyCart } from "./cart.action";
 import { getUserById } from "./user.actions";
+import { insertOrderSchema } from "../validators";
+import { prisma } from "@/db/prisma";
+import { CartItem } from "@/types";
 
 // Create order and create the order items
 
@@ -17,7 +20,69 @@ export async function createOrder() {
         const userId = session?.user?.id;
         if(!userId) throw new Error('User not found');
 
-        const user = await getUserById(userId);
+        const user = await getUserById(userId); //사용자의 정보를 줌
+
+        if(!cart || cart.items.length === 0) {
+            return { success: false, message: 'Your cart is empty', redirectTo: '/cart' }
+        }
+
+
+        if(!user.address) {
+            return { success: false, message: 'No shipping address', redirectTo: '/shipping-address' }
+        }
+
+
+        if(!user.paymentMethod) {
+            return { success: false, message: 'No payment method', redirectTo: '/payment-method' }
+        }
+
+        // Create order object 
+        const order = insertOrderSchema.parse({
+            userId: user.id,
+            shippingAddress: user.address,
+            patmentMethod: user.paymentMethod,
+            itemsPrice: cart.itemsPrice,
+            shippingPrice: cart.shippingPrice,
+            taxPrice: cart.taxPrice,
+            totalsPrice: cart.totalPrice,
+        });
+        
+        // Create a transaction to create order and order items in database
+       const insertedOrderId = await prisma.$transaction(async (tx) =>  {
+            // Create order 
+            const insertedOrder = await tx.order.create({ data: order});
+            // Create order items from the cart item
+            for (const item of cart.items as CartItem[]) { 
+                await tx.orderItem.create({
+                    data: {
+                        ...item,
+                        price: item.price,
+                        orderId: insertedOrder.id
+                    },
+                });
+            }
+            // Cleat cart
+            await tx.cart.update({
+                where: {id: cart.id},
+                data: {
+                    items: [],
+                    totalPrice: 0,
+                    taxPrice: 0,
+                    shippingPrice: 0,
+                    itemsPrice: 0,
+                }
+            });
+
+            return insertedOrder.id;
+        });
+
+        if(!insertedOrderId) throw new Error('Order not created')
+
+        return { 
+            success: true, 
+            messgae: 'Order created', 
+            redirectTo: `/order/${insertedOrderId}`,  
+    }
     } catch (error) {
         if(isRedirectError(error)) throw error;
         return {success: false, message: formatError(error)}
