@@ -6,9 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useFormStatus } from "react-dom";
 import { createOrder } from "@/lib/actions/order.actions";
 
-
-
-
 const PlaceOrderForm = () => {
     const router = useRouter();
 
@@ -17,7 +14,7 @@ const PlaceOrderForm = () => {
 
         const res = await createOrder();
 
-        if(res.redirectTo) { 
+        if (res.redirectTo) { 
             router.push(res.redirectTo);
         }
     }
@@ -31,7 +28,7 @@ const PlaceOrderForm = () => {
                 ) : (
                     <Check className="w-4 h-4" />
                 )}{' '}
-                Ok
+                Place Order
             </Button>
         )
     }

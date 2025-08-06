@@ -23,36 +23,45 @@ export async function createOrder() {
         const user = await getUserById(userId); //사용자의 정보를 줌
 
         if(!cart || cart.items.length === 0) {
-            return { success: false, message: 'Your cart is empty', redirectTo: '/cart' }
+            return { 
+                success: false, 
+                message: 'Your cart is empty', 
+                redirectTo: '/cart' }
         }
 
 
         if(!user.address) {
-            return { success: false, message: 'No shipping address', redirectTo: '/shipping-address' }
+            return { 
+                success: false, 
+                message: 'No shipping address', 
+                redirectTo: '/shipping-address' }
         }
 
 
         if(!user.paymentMethod) {
-            return { success: false, message: 'No payment method', redirectTo: '/payment-method' }
+            return { 
+                success: false, 
+                message: 'No payment method', 
+                redirectTo: '/payment-method' }
         }
 
         // Create order object 
         const order = insertOrderSchema.parse({
             userId: user.id,
             shippingAddress: user.address,
-            patmentMethod: user.paymentMethod,
+            paymentMethod: user.paymentMethod,
             itemsPrice: cart.itemsPrice,
             shippingPrice: cart.shippingPrice,
             taxPrice: cart.taxPrice,
-            totalsPrice: cart.totalPrice,
+            totalPrice: cart.totalPrice,
         });
         
         // Create a transaction to create order and order items in database
        const insertedOrderId = await prisma.$transaction(async (tx) =>  {
             // Create order 
-            const insertedOrder = await tx.order.create({ data: order});
+            const insertedOrder = await tx.order.create({ data: order });
             // Create order items from the cart item
-            for (const item of cart.items as CartItem[]) { 
+            for (const item of cart.items as CartItem[]) {
                 await tx.orderItem.create({
                     data: {
                         ...item,
@@ -75,6 +84,9 @@ export async function createOrder() {
 
             return insertedOrder.id;
         });
+
+        console.log('111Inserted Order ID:', insertedOrderId);
+
 
         if(!insertedOrderId) throw new Error('Order not created')
 
