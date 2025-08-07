@@ -70,7 +70,7 @@ export async function createOrder() {
                     },
                 });
             }
-            // Cleat cart
+            // Clear cart
             await tx.cart.update({
                 where: {id: cart.id},
                 data: {
@@ -108,7 +108,7 @@ export async function getOrderById(orderId: string) {
             id: orderId
         },
         include: {
-            orderItem: true,
+            orderitems: true,
             user: { select: { name: true, email: true} },
         }
     });

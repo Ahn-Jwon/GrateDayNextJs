@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 
 const PlaceOrderPage = async () => {
   const cart = await getMyCart();
+  // console.log("🛒 cart 확인:", cart); // ✅ 여기!
   const session = await auth();
   const userId = session?.user?.id;
 
