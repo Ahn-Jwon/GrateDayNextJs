@@ -18,13 +18,6 @@ const calcPrice = (items: CartItem[]) => {
     taxPrice = round2(0.15 *  itemsPrice),
     totalPrice = round2(itemsPrice + taxPrice + shippingPrice) //전체가격
 
-    console.log("📦 calcPrice 계산 결과:", {
-        itemsPrice: itemsPrice.toFixed(2),
-        shippingPrice: shippingPrice.toFixed(2),
-        taxPrice: taxPrice.toFixed(2),
-        totalPrice: totalPrice.toFixed(2),
-      });
-
     return {
         itemsPrice: itemsPrice.toFixed(2),
         shippingPrice: shippingPrice.toFixed(2),
@@ -137,7 +130,7 @@ export async function getMyCart() {
   
     if (!cart) return undefined;
 
-    console.log("getMyCart에서 가격:", {
+    console.log("///getMyCart Price///:", {
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,

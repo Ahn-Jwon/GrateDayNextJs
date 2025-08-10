@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { getMyCart } from "@/lib/actions/cart.action";
+import { getMyCart } from '@/lib/actions/cart.action';
 import { getUserById } from "@/lib/actions/user.actions";
 import { ShippingAddress } from "@/types";
 import { Metadata } from "next";
@@ -26,7 +26,6 @@ export const metadata: Metadata = {
 
 const PlaceOrderPage = async () => {
   const cart = await getMyCart();
-  // console.log("🛒 cart 확인:", cart); // ✅ 여기!
   const session = await auth();
   const userId = session?.user?.id;
 
@@ -116,6 +115,7 @@ const PlaceOrderPage = async () => {
           </Card>
         </div>
         <div>
+
           <Card>
             <CardContent className='p-4 gap-4 space-y-4'>
              <div className="flex justify-between">
