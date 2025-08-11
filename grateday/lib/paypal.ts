@@ -30,7 +30,7 @@ export const paypal = {
         const accessToken = await generateAccessToken();
         const url = `${base}/v2/checkout/orders/${orderId}/capture`;
 
-        const response = await fetch(url {
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
