@@ -188,7 +188,7 @@ export async function approvePayPalOrder(
             status: captureData.status,
             email_address: captureData.payer.email_address,
             pricePaid: captureData.purchase_units[0]?.payments?.captures[0]?.amount?.value
-        }
+        },
       });
 
       revalidatePath(`/order/${orderId}`);
