@@ -277,7 +277,7 @@ export async function approvePayPalOrder(
         });
 
         const dataCount = await prisma.order.count({
-            where: { userId: session?.user?.id}
+            where: { userId: session?.user?.id!}
         });
 
         return {
