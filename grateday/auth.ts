@@ -54,12 +54,13 @@ export const config = {
   ],
   callbacks: {
     async session({ session, user, trigger, token}: any) { // any 추후 수정
+        
         // Set the user ID from the token
         session.user.id = token.sub;
         session.user.role = token.role;
         session.user.name = token.name;
 
-        // console.log(token);
+        console.log("222", {token});
 
         // If there is an update, set the user name
         if (trigger === 'update') {
@@ -69,6 +70,7 @@ export const config = {
         return session
     },
     async jwt({ token, user, trigger, session }: any) { //  빨간줄 추후 수정
+        // console.log("🟡 2jwt callback", { user, tokenBefore: token, trigger });
         // Assign user fields to token
         if (user) {
             token.id = user.id;
@@ -81,6 +83,7 @@ export const config = {
                 // Update databbase to reflect the token name
                 await prisma.user.update({
                     where: {id: user.id },
+
                     data: {name: token.name},
                 });
              }

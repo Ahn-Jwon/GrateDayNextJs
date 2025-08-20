@@ -41,7 +41,7 @@ export async function signOutUser() {
     await signOut();
 }
 
-// Sign Up user //actionState Hook  (상태관리 Hook)
+// 사용자 등록 //actionState Hook(상태관리 Hook)
 export async function signUpUser(prevState: unknown, formData: FormData) {
     try {
         const user = signUpFormSchema.parse({
