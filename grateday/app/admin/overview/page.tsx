@@ -34,7 +34,7 @@ const AdminOverviewPage = async () => {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenu</CardTitle>
+            <CardTitle className="text-sm font-medium">Total 판매금액</CardTitle>
             <BadgeDollarSign />
           </CardHeader>
           <CardContent>
@@ -45,7 +45,7 @@ const AdminOverviewPage = async () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Sales</CardTitle>
+            <CardTitle className="text-sm font-medium">판매수량</CardTitle>
             <CreditCard />
           </CardHeader>
           <CardContent>
@@ -56,7 +56,7 @@ const AdminOverviewPage = async () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Customers</CardTitle>
+            <CardTitle className="text-sm font-medium">User</CardTitle>
             <Users />
           </CardHeader>
           <CardContent>
@@ -67,7 +67,7 @@ const AdminOverviewPage = async () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Products</CardTitle>
+            <CardTitle className="text-sm font-medium">진열상품</CardTitle>
             <Barcode />
           </CardHeader>
           <CardContent>
@@ -80,7 +80,7 @@ const AdminOverviewPage = async () => {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
           <CardHeader>
-            <CardTitle>OverView</CardTitle>
+            <CardTitle>매출그래프</CardTitle>
           </CardHeader>
           <CardContent>
             <Charts data={{
@@ -90,16 +90,16 @@ const AdminOverviewPage = async () => {
         </Card>
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>Recent Sales</CardTitle>
+            <CardTitle>구매고객</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>BUYER</TableHead>
-                  <TableHead>DATE</TableHead>
-                  <TableHead>TOTAL</TableHead>
-                  <TableHead>ACTIONS</TableHead>
+                  <TableHead>고객명</TableHead>
+                  <TableHead>날짜</TableHead>
+                  <TableHead>금액</TableHead>
+                  <TableHead>상세정보</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
