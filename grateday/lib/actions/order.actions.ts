@@ -297,7 +297,7 @@ export async function approvePayPalOrder(
         // Get counts for each resource
         const ordersCount = await prisma.order.count();
         const productCount = await prisma.product.count();
-        const userCount = await prisma.user.count();
+        const usersCount = await prisma.user.count();
 
         // Calculate the total sales 
         const totalSales = await prisma.order.aggregate({
@@ -324,7 +324,7 @@ export async function approvePayPalOrder(
         return {
             ordersCount,
             productCount,
-            userCount,
+            usersCount,
             totalSales,
             latestSales,
             salesData,
