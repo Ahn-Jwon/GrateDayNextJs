@@ -75,7 +75,7 @@ export const config = {
         if (user) {
             token.id = user.id;
             token.role = user.role;
-
+            
             // If user has no name then user the email
             if (user.name === 'No_NAME') {
                 token.name = user.email!.split('@')[0];
@@ -89,6 +89,7 @@ export const config = {
              }
 
              if (['signIn', 'signUp'].includes(trigger)) {
+                console.log ('유저는?', user)
                 const cookiesObject = await cookies();
                 const sessionCartId = cookiesObject.get('sessionCartId')?.value;
        
@@ -97,7 +98,7 @@ export const config = {
                 const sessionCart = await prisma.cart.findFirst({
                   where: { sessionCartId },
                 });
-       
+                if (!sessionCart) return token;
                 if (!sessionCart) return;
        
                 if (sessionCart.userId !== user.id) {
