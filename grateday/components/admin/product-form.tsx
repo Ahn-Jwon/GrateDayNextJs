@@ -21,6 +21,9 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { createProduct, updateProduct } from "@/lib/actions/product.actions";
+import { UploadButton } from "@/lib/uploadthing";
+import { Card, CardContent } from "../ui/card";
+import Image from "next/image";
 
 const ProductForm = ({
   type,
@@ -43,51 +46,58 @@ const ProductForm = ({
       product && type === "Update" ? product : productDefaultValues,
   });
 
-  const onSumit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (values) => {
+  const onSumit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (
+    values
+  ) => {
     // On Create
-    if (type === 'Create') {
+    if (type === "Create") {
       const res = await createProduct(values);
 
-      if(!res.success) { 
+      if (!res.success) {
         toast({
-          variant: 'destructive',
-          description: res.message
+          variant: "destructive",
+          description: res.message,
         });
       } else {
         toast({
-          description: res.message
-        })
-        router.push('/admin/products');
+          description: res.message,
+        });
+        router.push("/admin/products");
       }
     }
 
     // On Update
-    if (type === 'Update') {
-      if(!productId) {
-        router.push('/admin/products');
+    if (type === "Update") {
+      if (!productId) {
+        router.push("/admin/products");
         return;
       }
 
       const res = await updateProduct({ ...values, id: productId });
 
-      if(!res.success) { 
+      if (!res.success) {
         toast({
-          variant: 'destructive',
-          description: res.message
+          variant: "destructive",
+          description: res.message,
         });
       } else {
         toast({
-          description: res.message
-        })
-        router.push('/admin/products');
+          description: res.message,
+        });
+        router.push("/admin/products");
       }
     }
-  }
+  };
 
+  const images = form.watch("images");
 
   return (
     <Form {...form}>
-      <form method="POST" onSubmit={form.handleSubmit(onSumit)} className="space-y-8">
+      <form
+        method="POST"
+        onSubmit={form.handleSubmit(onSumit)}
+        className="space-y-8"
+      >
         <div className="flex flex-col md:flex-row gap-5">
           {/* Name  */}
           <FormField
@@ -236,6 +246,53 @@ const ProductForm = ({
         </div>
         <div className="upload-field flex flex-col md:flex-row gap-5">
           {/* Images  */}
+          <FormField
+            control={form.control}
+            name="images"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<
+                z.infer<typeof insertProductSchema>,
+                "images"
+              >;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel>Images</FormLabel>
+                <Card>
+                  <CardContent className="space-y-2 mt-2 min-h-48">
+                    <div className="flex-start space-x-2">
+                      {images.map((image: string) => (
+                        <Image
+                          key={image}
+                          src={image}
+                          alt="product image"
+                          className="w-20 h-20 object-cover object-center rounded-sm"
+                          width={100}
+                          height={100}
+                        />
+                      ))}
+                      <FormControl>
+                        <UploadButton
+                          endpoint="imageUploader"
+                          onClientUploadComplete={(res: { url: string }[]) => {
+                            form.setValue("images", [...images, res[0].url]);
+                          }}
+                          onUploadError={(error) => {
+                            toast({
+                              variant: 'destructive',
+                              description: `ERROR! ${error.message}`,
+                            })
+                          }}
+                        />
+                      </FormControl>
+                    </div>
+                  </CardContent>
+                </Card>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <div className="upload-field">{/* isFeatured */}</div>
         <div>
