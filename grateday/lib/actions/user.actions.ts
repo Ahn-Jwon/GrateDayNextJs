@@ -13,6 +13,7 @@ import {prisma} from '@/db/prisma';
 import { formatError } from "../utils";
 import { ShippingAddress } from "@/types";
 import z from "zod";
+import { PAGE_SIZE } from "../constants";
 
 
 // Sign in the user with credentials 後で구글이나 깃허브로도 가능
@@ -169,3 +170,25 @@ export async function updateProfile(user: { name: string; email: string; }) {
         return { success: false, message: formatError(error)}
     }
 }
+
+// Get all the users
+export async function getAllUsers({ 
+    limit = PAGE_SIZE,
+    page
+ }: {
+    limit?: number;
+    page: number;
+ }) { 
+    const data = await prisma.user.findMany({
+        orderBy: { createdAt: 'desc' },
+        take: limit,
+        skip: (page - 1) * limit
+    });
+
+    const dataCount = await prisma.user.count();
+
+    return {
+        data,
+        totalPages: Math.ceil(dataCount / limit)
+    };
+ }
