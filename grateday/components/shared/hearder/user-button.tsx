@@ -24,7 +24,9 @@ const UserButton = async () => {
       </Button>
     );
   }
-  const firstInintial = session.user?.name?.charAt(0).toUpperCase() ?? "U"; // 이름의 첫번째 숫자를 버튼 아이콘으로 보여주고 없으면 'U' 삼향연산자
+  const firstInintial = session.user?.name ?? "User";
+
+  // const firstInintial = session.user?.name?.charAt(0).toUpperCase() ?? "U"; // 이름의 첫번째 숫자를 버튼 아이콘으로 보여주고 없으면 'U' 삼향연산자
 
   return (
     <div className="flex gap-2 items-center">
@@ -35,7 +37,7 @@ const UserButton = async () => {
               variant="ghost"
               className="relativee w-8 h-8 rounded-full ml-2 flex items-center justify-center bg-gray-200"
             >
-              {firstInintial}
+              {firstInintial} 님
             </Button>
           </div>
         </DropdownMenuTrigger>

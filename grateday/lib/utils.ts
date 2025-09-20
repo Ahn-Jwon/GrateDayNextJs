@@ -8,13 +8,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-// Convert prisma object into a regular JS object 
+// 프리즈마 객체를 정규 JS 객체로 변환
 // Typescript 제네릭
 export function convertToPlainObject<T>(value: T) {
   return JSON.parse(JSON.stringify(value)); 
 }
 
-// Format number with decimal places 
+// 소수점 이하 숫자 형식
 export function formatNumberWithDecimal(num: number): string {
   const [int, decimal] = num.toString().split('.');
   return decimal ? `${int}.${decimal.padEnd(2, '0')}` : `${int}.00`;
@@ -41,7 +41,7 @@ export function formatError(error: any) {
 }
 
 
-// Round number to 2 decimal places
+// 소수점 이하 두 자리로 반올림
 export function round2(value: number | string) { 
   if (typeof value === 'number') { 
     return Math.round((value + Number.EPSILON) * 100) / 100;
@@ -52,13 +52,14 @@ export function round2(value: number | string) {
   }
 }
 
-const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
-  currency: 'USD',
+const CURRENCY_FORMATTER = new Intl.NumberFormat('ko-KR', {
   style: 'currency',
-  minimumFractionDigits: 2
+  currency: 'KRW',
+  minimumFractionDigits: 0, // 소수점 없이
+  maximumFractionDigits: 0
 });
 
-// Format currency using the formatter above
+// 위의 형식을 사용하여 통화 형식 지정
 export function formatCurrency(amount: number | string | null ) {
   if (typeof amount === 'number') {
     return CURRENCY_FORMATTER.format(amount);
@@ -70,7 +71,7 @@ export function formatCurrency(amount: number | string | null ) {
 }
 
 // Format Number 추후에 언어 바꾸기
-const NUMBER_FORMATTER = new Intl.NumberFormat('en-US');
+const NUMBER_FORMATTER = new Intl.NumberFormat('ko-KR');
 
 export function formatNumber(number: number) {
   return NUMBER_FORMATTER.format(number);
@@ -103,15 +104,15 @@ export const formatDateTime = (dateString: Date) => {
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   };
   const formattedDateTime: string = new Date(dateString).toLocaleString(
-    'en-US',
+    'ko-KR',
     dateTimeOptions
   );
   const formattedDate: string = new Date(dateString).toLocaleString(
-    'en-US',
+    'ko-KR',
     dateOptions
   );
   const formattedTime: string = new Date(dateString).toLocaleString(
-    'en-US',
+    'ko-KR',
     timeOptions
   );
   return {

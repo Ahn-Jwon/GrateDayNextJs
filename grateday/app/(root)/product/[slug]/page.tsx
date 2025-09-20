@@ -31,26 +31,25 @@ const ProductDetalisPage = async (props: {
           <div className="col-span-2 p-5">
             <div className="flex flex-col gap-6">
               <p>
-                {product.brand} {product.category}
+              {/* 카테고리: {product.brand} {product.category} */}
               </p>
-              <h1 className="h3 bold">{product.name}</h1>
-              <p>
+              <h1 className="h1 bold">{product.name}</h1>
+              {/* <p>
                 {product.rating} of {product.numReviews} Reviews
-              </p>
+              </p> */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                 <ProductPrice
                   value={Number(product.price)}
-                  className="w-24 rounded-full bg-green-100 text-green- px-5 py-2"
                 />
               </div>
             </div>
             <div className="mt-10">
-                <p className="font semibold">Description</p>
+                <p className="font semibold">제품설명</p>
                 <p>{product.description}</p>
             </div>
           </div>
           {/* Actionn Column */}
-          <div>
+          {/* <div>
             <Card>
                 <CardContent className='p-4'>
                     <div className="mb-2 flex justify-between">
@@ -83,7 +82,7 @@ const ProductDetalisPage = async (props: {
                     )}
                 </CardContent>
             </Card>
-          </div>
+          </div> */}
         </div>
       </section>
     </>
