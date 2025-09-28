@@ -19,7 +19,7 @@ const UserButton = async () => {
       // Login이 아닐경우.
       <Button asChild>
         <Link href="/sign-in">
-          <UserIcon /> Sign in
+          <UserIcon /> Login
         </Link>
       </Button>
     );
@@ -55,18 +55,18 @@ const UserButton = async () => {
           
           <DropdownMenuItem>
             <Link href='/user/profile' className="w-full">
-            User Profile</Link>
+            사용자프로필</Link>
           </DropdownMenuItem>
           
           <DropdownMenuItem>
             <Link href='/user/orders' className="w-full">
-            Orders History</Link>
+            주문내역</Link>
           </DropdownMenuItem>
 
           {session?.user?.role === 'admin' && (
              <DropdownMenuItem>
              <Link href='/admin/overview' className="w-full">
-             Admin</Link>
+             관리자페이지</Link>
            </DropdownMenuItem>
           )}
 
@@ -76,7 +76,7 @@ const UserButton = async () => {
                 className="w-full py-4 px-2 h-2 justify-start"
                 variant="ghost"
               >
-                Sign Out
+                Logout
               </Button>
             </form>
           </DropdownMenuItem>

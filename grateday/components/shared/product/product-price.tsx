@@ -5,9 +5,9 @@ const ProductPrice = ({ value, className }: { value: number; className?: string;
     const formatted = Math.round(value).toLocaleString('ko-KR');
   
     return (
-      <p className={cn('text-2xl', className)}>
+      <p className={cn('text-xs', className)}>
         {formatted}
-        <span className="text-xs align-super">원</span>
+        <span className="text-xs">원</span>
       </p>
     );
   }; 

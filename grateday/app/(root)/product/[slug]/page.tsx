@@ -10,15 +10,15 @@ import { getMyCart } from "@/lib/actions/cart.action";
 // 이쪽이 사이트의 화면라우터를 담당하는곳
 
 const ProductDetalisPage = async (props: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string }; // Promise 아님, app router에서는 그냥 객체
 }) => {
-  const { slug } = await props.params;
+  const { slug } = props.params;
+  const decodedSlug = decodeURIComponent(slug); // 한글 복원
 
-  const product = await getProductBySlug(slug);
+  const product = await getProductBySlug(decodedSlug);
   if (!product) notFound();
 
   const cart = await getMyCart();
-
   return (
     <>
       <section>
@@ -27,25 +27,23 @@ const ProductDetalisPage = async (props: {
           <div className="col-span-2">
             <ProductImages images={product.images} />
           </div>
-          {/* Details Columnn */} 
+          {/* Details Columnn */}
           <div className="col-span-2 p-5">
             <div className="flex flex-col gap-6">
-              <p>
-              {/* 카테고리: {product.brand} {product.category} */}
-              </p>
+              <p>{/* 카테고리: {product.brand} {product.category} */}</p>
               <h1 className="h1 bold">{product.name}</h1>
               {/* <p>
                 {product.rating} of {product.numReviews} Reviews
               </p> */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                <ProductPrice
-                  value={Number(product.price)}
-                />
+                <ProductPrice value={Number(product.price)} />
               </div>
             </div>
             <div className="mt-10">
-                <p className="font semibold">제품설명</p>
-                <p>{product.description}</p>
+              <p className="font-semibold mb-2">제품설명</p>
+              <p className="whitespace-pre-line text-xs p-2 ">
+                {product.description}
+              </p>
             </div>
           </div>
           {/* Actionn Column */}
